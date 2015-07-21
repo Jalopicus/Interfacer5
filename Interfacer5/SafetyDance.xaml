@@ -1,0 +1,67 @@
+﻿<Window x:Class="SafetyDance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Interfacer5"
+        mc:Ignorable="d"
+        Title="" Height="700" Width="550" ShowInTaskbar="False" Background="#FF293549" ResizeMode="NoResize" WindowStyle="ToolWindow">
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Height" Value="80"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel Grid.Column="0">
+        <Expander x:Name="Part1" Header="First Aid and Precautions" Foreground="AntiqueWhite" DockPanel.Dock="Top" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Column="0">
+                    <local:Fielder/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Skin Contact (FA)"/>
+                        <TextBox x:Name="FA_SkinTextBox" Text="{Binding FA_skin_contact, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Ingestion"/>
+                        <TextBox x:Name="FA_IngestionTextBox" Text="{Binding Ingestion, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Inhalation"/>
+                        <TextBox x:Name="FA_InhalationTextBox" Text="{Binding Inhalation, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Note to HCP"/>
+                        <TextBox x:Name="Note_to_hcpTextBox" Text="{Binding Note_to_hcp, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Expander>
+
+        <Expander x:Name="Part2" Header="Test" Foreground="AntiqueWhite" DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Test4"/>
+                        <TextBox x:Name="Txt4" Text="Test4" DockPanel.Dock="Top"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Test5"/>
+                        <TextBox x:Name="Txt5" Text="Test5" DockPanel.Dock="Top"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Test6"/>
+                        <TextBox x:Name="Txt6" Text="Test6" DockPanel.Dock="Top"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Expander>
+    </DockPanel>
+
+</Window>
