@@ -1,67 +1,153 @@
-﻿<Window x:Class="SafetyDance"
+﻿<Window x:Name="Swindow" x:Class="SafetyDance"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interfacer5"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        xmlns:doss="clr-namespace:Interfacer5.DossierTableAdapters"
         mc:Ignorable="d"
-        Title="" Height="700" Width="550" ShowInTaskbar="False" Background="#FF293549" ResizeMode="NoResize" WindowStyle="ToolWindow">
+        Title="" Height="625" Width="725" ShowInTaskbar="False" Background="#FF293549" 
+        Style="{StaticResource LooksGood}">
     <Window.Resources>
+        <doss:DefaultsTableAdapter x:Key="Presets"/>
         <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Height" Value="80"/>
         </Style>
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"/>
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="AntiqueWhite"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="HackPanel" TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Orientation" Value="Vertical"/>
+        </Style>
     </Window.Resources>
-    <DockPanel Grid.Column="0">
-        <Expander x:Name="Part1" Header="First Aid and Precautions" Foreground="AntiqueWhite" DockPanel.Dock="Top" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical" Grid.Column="0">
-                    <local:Fielder/>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Skin Contact (FA)"/>
-                        <TextBox x:Name="FA_SkinTextBox" Text="{Binding FA_skin_contact, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+    <Grid x:Name="LayoutRoot" DataContext="{Binding DataContext, ElementName=Swindow}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Height="24" Background="#FF2C2C2C" Margin="12,0" LastChildFill="False" Grid.Row="0">
+            <Button x:Name="Save" Content="Save" Margin="20,0" Foreground="AntiqueWhite" ToolTip="Save Changes"/>
+            <Label Content="|" Margin="0" Padding="0" Width="5" Opacity="0.6"/>
+            <ComboBox x:Name="Preset" ItemsSource="{Binding Source=Dossier, Path=Defaults}" Opacity="0.6" />
+            <Button x:Name="ApplyPreset" Content="Apply Preset" Foreground="AntiqueWhite" Margin="20,0"/>
+            <Button x:Name="SavePreset" Content="Save Preset" Foreground="AntiqueWhite" Margin="0"/>
+            <Button x:Name="Close" Style="{StaticResource WindowButt}" Content="r" />
+        </DockPanel >
+        <TabControl Grid.Row="1" Width="{Binding ElementName=LayoutRoot, Path=ActualWidth}">
+            <TabItem Header="First Aid and Precautions">
+                <Grid VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0">
+                        <local:Dancer DataContext="{Binding FA_skin_contact}" Cntnt="Skin Contact" DownPreset="Dancer_DownPreset"/>
+                        <local:Dancer DataContext="{Binding FA_eye_contact}" Cntnt="Eye Contact"/>
+                        <local:Dancer DataContext="{Binding Ingestion}" Cntnt="Ingestion"/>
+                        <local:Dancer DataContext="{Binding Inhalation}" Cntnt="Inhaltion"/>
+                        <local:Dancer DataContext="{Binding Note_to_hcp}" Cntnt="Note to HCP"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Ingestion"/>
-                        <TextBox x:Name="FA_IngestionTextBox" Text="{Binding Ingestion, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <local:Dancer DataContext="{Binding Eye_face_protection}" Cntnt="Eye/Face Protection"/>
+                        <local:Dancer DataContext="{Binding Skin_protection}" Cntnt="Skin Protection"/>
+                        <local:Dancer DataContext="{Binding Respiratory_protection}" Cntnt="Respiratory Protection"/>
+                        <local:Dancer DataContext="{Binding Engineering_controls}" Cntnt="Engineering Controls"/>
+                        <local:Dancer DataContext="{Binding General_hygiene_considerations}" Cntnt="General Hygiene"/>
+                        <local:Dancer DataContext="{Binding Advice_on_safe_handling}" Cntnt="Safe Handling"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Inhalation"/>
-                        <TextBox x:Name="FA_InhalationTextBox" Text="{Binding Inhalation, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Acute Symptoms and Effects">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Style="{StaticResource HackPanel}" Grid.Column="0">
+                        <local:Dancer DataContext="{Binding Likely_routes_of_exposure}" Cntnt="Exposure Routes"/>
+                        <local:Dancer DataContext="{Binding Eye_contact}" Cntnt="Eye Contact"/>
+                        <local:Dancer DataContext="{Binding Skin_contact}" Cntnt="Skin Contact"/>
+                        <local:Dancer DataContext="{Binding Ingestion}" Cntnt="Ingestion"/>
+                        <local:Dancer DataContext="{Binding Inhalation}" Cntnt="Inhalation"/>
+                        <local:Dancer DataContext="{Binding Reproductive_effects}" Cntnt="Reproductive Effects"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Note to HCP"/>
-                        <TextBox x:Name="Note_to_hcpTextBox" Text="{Binding Note_to_hcp, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    <StackPanel Style="{StaticResource HackPanel}" Grid.Column="1">
+                        <local:Dancer DataContext="{Binding Teratogenicity}" Cntnt="Teratogenicity"/>
+                        <local:Dancer DataContext="{Binding Mutagenicity}" Cntnt="Mutagenicity"/>
+                        <local:Dancer DataContext="{Binding Embryotoxicity}" Cntnt="Embryotoxicity"/>
+                        <local:Dancer DataContext="{Binding Sensitization_to_product}" Cntnt="Sensitization"/>
+                        <local:Dancer DataContext="{Binding Synergistic_products}" Cntnt="Synergistic Products"/>
+                        <local:Dancer DataContext="{Binding Carcinogenicity}" Cntnt="Carcinogenicity"/>
+                        <local:Dancer DataContext="{Binding Chronic}" Cntnt="Chronic"/>
                     </StackPanel>
-                </StackPanel>
-            </Grid>
-        </Expander>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Fire and Reactivity">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Style="{StaticResource HackPanel}" Grid.Column="1">
+                        <local:Dancer DataContext="{Binding Chemical_stability}" Cntnt="Chemical Stability"/>
+                        <local:Dancer DataContext="{Binding Hazardous_polymerization}" Cntnt="Hazardous Polymerization"/>
+                        <local:Dancer DataContext="{Binding Conditions_to_avoid}" Cntnt="Conditions to Avoid"/>
+                        <local:Dancer DataContext="{Binding Incompatibilities}" Cntnt="Incompatibilities"/>
+                        <local:Dancer DataContext="{Binding Hazardous_decomposition_products}" Cntnt="Decomposition Hazards"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource HackPanel}" Grid.Column="0">
+                        <local:Dancer DataContext="{Binding Suitable_extinguishing_media}" Cntnt="Extinguishing Media"/>
+                        <local:Dancer DataContext="{Binding Unsuitable_extinguishing_media}" Cntnt="Unsuitable Extinguishing Media"/>
+                        <local:Dancer DataContext="{Binding Precautions_for_firefighters}" Cntnt="First Responder Precautions"/>
+                        <local:Dancer DataContext="{Binding Specific_hazards}" Cntnt="Specific Hazards"/>
+                        <local:Dancer DataContext="{Binding Hazardous_combustion_products}" Cntnt="Combustion Hazards"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Storage, Disposal, Spill Response">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Style="{StaticResource HackPanel}" Grid.Column="0">
+                        <local:Dancer DataContext="{Binding Storage_conditions}" Cntnt="Storage Conditions"/>
+                        <local:Dancer DataContext="{Binding Suitable_materials_of_construction}" Cntnt="Construction Materials"/>
+                        <local:Dancer DataContext="{Binding Unsuitable_materials_of_construction}" Cntnt="Unsuitable Construction Materials"/>
+                        <local:Dancer DataContext="{Binding Personal_precautions}" Cntnt="Personal Precautions"/>
+                        <local:Dancer DataContext="{Binding Small_spill}" Cntnt="Small Spill Response"/>
+                        <local:Dancer DataContext="{Binding Large_spill}" Cntnt="Large Spill Response"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource HackPanel}" Grid.Column="1">
+                        <local:Dancer DataContext="{Binding Persistence}" Cntnt="Persistence"/>
+                        <local:Dancer DataContext="{Binding Bioaccumulation}" Cntnt="Bio-accumulation"/>
+                        <local:Dancer DataContext="{Binding Mobility}" Cntnt="Mobility"/>
+                        <local:Dancer DataContext="{Binding Disposal}" Cntnt="Disposal"/>
+                        <local:Dancer DataContext="{Binding RCRA_status}" Cntnt="RCRA Status"/>
+                        <local:Dancer DataContext="{Binding TSCA}" Cntnt="TSCA"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
-        <Expander x:Name="Part2" Header="Test" Foreground="AntiqueWhite" DockPanel.Dock="Top">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Test4"/>
-                        <TextBox x:Name="Txt4" Text="Test4" DockPanel.Dock="Top"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Test5"/>
-                        <TextBox x:Name="Txt5" Text="Test5" DockPanel.Dock="Top"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Test6"/>
-                        <TextBox x:Name="Txt6" Text="Test6" DockPanel.Dock="Top"/>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-        </Expander>
-    </DockPanel>
-
+    </Grid>
 </Window>
+    

@@ -5,284 +5,297 @@
     xmlns:local="clr-namespace:Interfacer5"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:doss="clr-namespace:Interfacer5.DossierTableAdapters"
-    StartupUri="SafetyDance.xaml">
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:Dossier x:Key="Dossier"/>
-               <Style TargetType="{x:Type Label}">
-            <Setter Property="Foreground" Value="AntiqueWhite"/>
-            <Setter Property="Background" Value="{x:Null}"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="2,2,2,2"/>
-            <Setter Property="Padding" Value="2,2,2,2"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Width" Value="85"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="ColHeader" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF3A1515" Offset="0"/>
-                        <GradientStop Color="#FF662727" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Width" Value="Auto"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        </Style>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Width" Value="175px"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-            <Setter Property="Opacity" Value="0.9"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="0" Color="Gold" Opacity="0" BlurRadius="8"/>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsFocused" Value="True">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation To="1.0" Storyboard.TargetProperty="(Effect).Opacity" Duration="00:00:00"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation To="0.0" Storyboard.TargetProperty="(Effect).Opacity" Duration="00:00:02"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.ExitActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="{x:Type ComboBox}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Width" Value="175px"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Opacity" Value="0.9"/>
-            <Setter Property="Background" Value="White"/>
-        </Style>
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Margin" Value="5,0"/>
-            <Setter Property="Background" Value="{x:Null}"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="AntiqueWhite"/>
-        </Style>
-        <Style TargetType="{x:Type ListBox}">
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
-        </Style>
-        <Style TargetType="{x:Type ListBoxItem}">
-            <Setter Property="Foreground" Value="AntiqueWhite"/>
-            <Setter Property="Opacity" Value="0.7"/>
-            <Style.Triggers>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsMouseOver" Value="True"/>
-                        <Condition Property="IsSelected" Value="False"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="Foreground" Value="White" />
-                </MultiTrigger>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsMouseOver" Value="False"/>
-                        <Condition Property="IsSelected" Value="False"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="Foreground" Value="AntiqueWhite" />
-                </MultiTrigger>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsSelected" Value="True"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="Background" Value="AntiqueWhite"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="BorderBrush" Value="White"/>
-                    <Setter Property="Foreground" Value="#FF492929"/>
-                    <Setter Property="FontWeight" Value="DemiBold"/>
-                </MultiTrigger>
-            </Style.Triggers>
-        </Style>
-        <ControlTemplate x:Key="SimpleExpanderButtonTemp" 
+       
+            <local:Dossier x:Key="Dossier"/>
+            <!--All-client Window-->
+            <Style x:Key="LooksGood" TargetType="{x:Type Window}">
+                <Setter Property="shell:WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <shell:WindowChrome ResizeBorderThickness="6" CaptionHeight="30" CornerRadius="0" GlassFrameThickness="0"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="WindowStyle" Value="None"/>
+                <Setter Property="ResizeMode" Value="NoResize"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Window}">
+                            <Border BorderThickness="2" BorderBrush="#3F3F46" Background="{TemplateBinding Background}">
+                                <ContentPresenter Grid.Row="1"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="AntiqueWhite"/>
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="ColHeader" BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+                <Setter Property="Background" Value="#FF3A1515"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Opacity" Value="0.9"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="0" Color="Gold" Opacity="0" BlurRadius="8"/>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="1.0" Storyboard.TargetProperty="(Effect).Opacity" Duration="00:00:00"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="0.0" Storyboard.TargetProperty="(Effect).Opacity" Duration="00:00:02"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type ComboBox}">
+                <Setter Property="VerticalContentAlignment" Value="Top"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="Opacity" Value="0.9"/>
+                <Setter Property="Background" Value="White"/>
+            </Style>
+            <Style x:Key="WindowButt" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="DockPanel.Dock" Value="Right"/>
+                <Setter Property="FontFamily" Value="Webdings"/>
+                <Setter Property="Width" Value="20"/>
+            </Style>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="AntiqueWhite"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Label VerticalContentAlignment="Center" shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                                <Label.Content>
+                                    <ContentPresenter/>
+                                </Label.Content>
+                            </Label>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="1" Color="Gold" Opacity="0" BlurRadius="3"/>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="1.0" Storyboard.TargetProperty="(Effect).Opacity" Duration="00:00:00"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="0.0" Storyboard.TargetProperty="(Effect).Opacity" Duration="00:00:03"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type ListBoxItem}">
+                <Style.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="AntiqueWhite"/>
+                </Style.Resources>
+                <Setter Property="Foreground" Value="AntiqueWhite"/>
+                <Setter Property="Opacity" Value="0.7"/>
+                <Setter Property="ToolTip" Value="{Binding ToolTip}"/>
+                <Style.Triggers>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsSelected" Value="True"/>
+                            <Condition Property="IsMouseOver" Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Opacity" Value="1"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Background" Value="White"/>
+                    </MultiTrigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsMouseOver" Value="True"/>
+                            <Condition Property="IsSelected" Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Foreground" Value="White"/>
+                    </MultiTrigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsMouseOver" Value="False"/>
+                            <Condition Property="IsSelected" Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Foreground" Value="AntiqueWhite"/>
+                        <Setter Property="Opacity" Value="0.7"/>
+                    </MultiTrigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsSelected" Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Background" Value="AntiqueWhite"/>
+                        <Setter Property="Opacity" Value="1"/>
+                        <Setter Property="Foreground" Value="#FF492929"/>
+                        <Setter Property="FontWeight" Value="DemiBold"/>
+                        <Setter Property="Background" Value="White"/>
+                    </MultiTrigger>
+                </Style.Triggers>
+            </Style>
+            <ControlTemplate x:Key="SimpleExpanderButtonTemp" 
              TargetType="{x:Type ToggleButton}">
-            <Border x:Name="ExpanderButtonBorder"
+                <Border x:Name="ExpanderButtonBorder"
             Background="{TemplateBinding Background}"
             BorderBrush="{TemplateBinding BorderBrush}"
             BorderThickness="{TemplateBinding BorderThickness}"
             Padding="{TemplateBinding Padding}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Fill="Transparent"
-                       Grid.ColumnSpan="2"/>
-                    <Ellipse Name="Circle"
-                 Grid.Column="0"
-                 Stroke="DarkGray"
-                 Width="20"
-                 Height="20"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 />
-                    <Path x:Name="Sign"
-              Grid.Column="0"
-              Data="M 0,5 H 10 M 5,0 V 10 Z"
-              Stroke="#FF666666"
-              Width="10"
-              Height="10"
-              StrokeThickness="2"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              RenderTransformOrigin="0.5,0.5"
-              >
-                        <Path.RenderTransform>
-                            <RotateTransform Angle="0"/>
-                        </Path.RenderTransform>
-                    </Path>
-                    <ContentPresenter x:Name="HeaderContent"
-                          Grid.Column="1"
-                          Margin="4,0,0,0"
-                          ContentSource="Content"/>
-                </Grid>
-            </Border>
-            <ControlTemplate.Triggers>
-                <!--Change the sign to minus when toggled-->
-                <Trigger Property="IsChecked"
-                 Value="True">
-                    <Setter Property="Data" 
-               TargetName="Sign" Value="M 0,5 H 10 Z"/>
-                </Trigger>
-                <!-- MouseOver, Pressed behaviours-->
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Stroke"
-                            Value="#FF3C7FB1"
-                            TargetName="Circle"/>
-                    <Setter Property="Stroke"
-                            Value="#222"
-                            TargetName="Sign"/>
-                </Trigger>
-                <Trigger Property="IsPressed"
-                         Value="true">
-                    <Setter Property="Stroke"
-                            Value="#FF526C7B"
-                            TargetName="Circle"/>
-                    <Setter Property="StrokeThickness"
-                            Value="1.5"
-                            TargetName="Circle"/>
-                    <Setter Property="Stroke"
-                            Value="#FF003366"
-                            TargetName="Sign"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        <Style TargetType="{x:Type Expander}">
-            <Style.Resources>
-                <local:MultiplyConverter x:Key="multiplyConverter" />
-            </Style.Resources>
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate x:Name ="ExpTmp" TargetType="{x:Type Expander}" >
-                        <DockPanel x:Name="Dp">
-                            <ToggleButton x:Name="ExpanderButton" DockPanel.Dock="Top" Template="{StaticResource SimpleExpanderButtonTemp}" 
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Fill="Transparent" Grid.ColumnSpan="2"/>
+                        <Ellipse Name="Circle" Grid.Column="0" Stroke="DarkGray" Width="20" Height="20" 
+                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Path x:Name="Sign" Grid.Column="0" Data="M 0,5 H 10 M 5,0 V 10 Z" Stroke="#FF666666" 
+                          Width="10" Height="10" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                          RenderTransformOrigin="0.5,0.5">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="0"/>
+                            </Path.RenderTransform>
+                        </Path>
+                        <ContentPresenter x:Name="HeaderContent" Grid.Column="1" ContentSource="Content"/>
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <!--Change the sign to minus when toggled-->
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Data" TargetName="Sign" Value="M 0,5 H 10 Z"/>
+                    </Trigger>
+                    <!-- MouseOver, Pressed behaviours-->
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Stroke" Value="#FF3C7FB1" TargetName="Circle"/>
+                        <Setter Property="Stroke" Value="#222" TargetName="Sign"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                        <Setter Property="Stroke" Value="#FF526C7B" TargetName="Circle"/>
+                        <Setter Property="StrokeThickness" Value="1.5" TargetName="Circle"/>
+                        <Setter Property="Stroke" Value="#FF003366" TargetName="Sign"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="{x:Type Expander}">
+                <Style.Resources>
+                    <local:MultiplyConverter x:Key="multiplyConverter" />
+                </Style.Resources>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate x:Name ="ExpTmp" TargetType="{x:Type Expander}" >
+                            <DockPanel x:Name="Dp">
+                                <ToggleButton x:Name="ExpanderButton" DockPanel.Dock="Top" Template="{StaticResource SimpleExpanderButtonTemp}" 
                                           Content="{TemplateBinding Header}" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" 
                                           OverridesDefaultStyle="True" Padding="1.5,0"/>
                                 <ContentPresenter x:Name="Cntnt" DockPanel.Dock="Top" Height="Auto" Visibility="Collapsed"/>
-                            <ScrollViewer x:Name="ExpanderContentScrollView" DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Hidden"
+                                <ScrollViewer x:Name="ExpanderContentScrollView" DockPanel.Dock="Bottom" HorizontalScrollBarVisibility="Hidden"
                                           VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Bottom">
-                                <ScrollViewer.Tag>
-                                    <sys:Double>0.0</sys:Double>
-                                </ScrollViewer.Tag>
-                                <ScrollViewer.Height>
-                                    <MultiBinding Converter="{StaticResource multiplyConverter}">
-                                        <Binding Path="ActualHeight" ElementName="ExpanderContent"/>
-                                        <Binding Path="Tag" RelativeSource="{RelativeSource Self}" />
-                                    </MultiBinding>
-                                </ScrollViewer.Height>
-                                <ContentPresenter x:Name="ExpanderContent" ContentSource="Content"/>
-                            </ScrollViewer>
-                        </DockPanel>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsExpanded" Value="True">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation 
-                           Storyboard.TargetName="ExpanderContentScrollView"
-                           Storyboard.TargetProperty="Tag"
-                           To="1"
-                           Duration="0:0:0.4"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation 
-                             Storyboard.TargetName="ExpanderContentScrollView"
-                             Storyboard.TargetProperty="Tag"
-                             To="0"
-                             Duration="0:0:0.4"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                        <!--<ControlTemplate.Triggers>
-                            <Trigger Property="IsExpanded" Value="True">
-                                
-                                <Trigger.EnterActions>
-                                    
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="Cntnt" Storyboard.TargetProperty="ContentPresenter.ActualHeight" To="1" Duration="0:0:0.4"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                            </Trigger>
-                        </ControlTemplate.Triggers>-->
-                        
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <ControlTemplate x:Key="ListBoxControlTemplate1" TargetType="{x:Type ListBox}">
-            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True">
-                <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
-                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                </ScrollViewer>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                </Trigger>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsGrouping" Value="True"/>
-                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-                </MultiTrigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+                                    <ScrollViewer.Tag>
+                                        <sys:Double>0.0</sys:Double>
+                                    </ScrollViewer.Tag>
+                                    <ScrollViewer.Height>
+                                        <MultiBinding Converter="{StaticResource multiplyConverter}">
+                                            <Binding Path="ActualHeight" ElementName="ExpanderContent"/>
+                                            <Binding Path="Tag" RelativeSource="{RelativeSource Self}" />
+                                        </MultiBinding>
+                                    </ScrollViewer.Height>
+                                    <ContentPresenter x:Name="ExpanderContent" ContentSource="Content"/>
+                                </ScrollViewer>
+                            </DockPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsExpanded" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="ExpanderContentScrollView" Storyboard.TargetProperty="Tag" To="1" Duration="0:0:0.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="ExpanderContentScrollView" Storyboard.TargetProperty="Tag" To="0" Duration="0:0:0.3"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ControlTemplate x:Key="ListBoxControlTemplate1" TargetType="{x:Type ListBox}">
+                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="True">
+                    <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </ScrollViewer>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                    </Trigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsGrouping" Value="True"/>
+                            <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+                    </MultiTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <Style TargetType="{x:Type CheckBox}">
+                <Setter Property="Foreground" Value="AntiqueWhite"/>
+            </Style>
+            <Style TargetType="{x:Type ScrollBar}">
+                <Setter Property="Background" Value="#FF2C2C2C"/>
+                <Setter Property="Opacity" Value="0.9"/>
+            </Style>
+          
     </Application.Resources>
 </Application>

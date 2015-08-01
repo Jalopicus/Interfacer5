@@ -1852,17 +1852,11 @@ Partial Public Class Dossier
     Partial Public Class ClassificationsDataTable
         Inherits Global.System.Data.TypedTableBase(Of ClassificationsRow)
         
-        Private columnID As Global.System.Data.DataColumn
-        
-        Private columnPID As Global.System.Data.DataColumn
-        
         Private columnProduct_name As Global.System.Data.DataColumn
-        
-        Private columnType As Global.System.Data.DataColumn
         
         Private columnKey As Global.System.Data.DataColumn
         
-        Private columnSortage As Global.System.Data.DataColumn
+        Private columnKeyy As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -1901,33 +1895,9 @@ Partial Public Class Dossier
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property PIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnPID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Product_nameColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnProduct_name
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property TypeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnType
             End Get
         End Property
         
@@ -1941,9 +1911,9 @@ Partial Public Class Dossier
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property SortageColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property KeyyColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnSortage
+                Return Me.columnKeyy
             End Get
         End Property
         
@@ -1984,9 +1954,9 @@ Partial Public Class Dossier
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddClassificationsRow(ByVal PID As Integer, ByVal Product_name As String, ByVal Type As String, ByVal Key As Integer, ByVal Sortage As Double) As ClassificationsRow
+        Public Overloads Function AddClassificationsRow(ByVal Product_name As String, ByVal Key As Integer, ByVal Keyy As Integer) As ClassificationsRow
             Dim rowClassificationsRow As ClassificationsRow = CType(Me.NewRow,ClassificationsRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, PID, Product_name, Type, Key, Sortage}
+            Dim columnValuesArray() As Object = New Object() {Product_name, Key, Keyy}
             rowClassificationsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowClassificationsRow)
             Return rowClassificationsRow
@@ -2009,34 +1979,21 @@ Partial Public Class Dossier
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
-            Me.columnID = MyBase.Columns("ID")
-            Me.columnPID = MyBase.Columns("PID")
             Me.columnProduct_name = MyBase.Columns("Product_name")
-            Me.columnType = MyBase.Columns("Type")
             Me.columnKey = MyBase.Columns("Key")
-            Me.columnSortage = MyBase.Columns("Sortage")
+            Me.columnKeyy = MyBase.Columns("Keyy")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
-            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnID)
-            Me.columnPID = New Global.System.Data.DataColumn("PID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnPID)
             Me.columnProduct_name = New Global.System.Data.DataColumn("Product_name", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnProduct_name)
-            Me.columnType = New Global.System.Data.DataColumn("Type", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnType)
             Me.columnKey = New Global.System.Data.DataColumn("Key", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnKey)
-            Me.columnSortage = New Global.System.Data.DataColumn("Sortage", GetType(Double), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnSortage)
-            Me.columnID.AutoIncrement = true
-            Me.columnID.AutoIncrementSeed = -1
-            Me.columnID.AutoIncrementStep = -1
+            Me.columnKeyy = New Global.System.Data.DataColumn("Keyy", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnKeyy)
             Me.columnProduct_name.MaxLength = 255
-            Me.columnType.MaxLength = 255
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -10764,36 +10721,6 @@ Partial Public Class Dossier
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ID() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tableClassifications.IDColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'ID' in table 'Classifications' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableClassifications.IDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property PID() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tableClassifications.PIDColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'PID' in table 'Classifications' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableClassifications.PIDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property Product_name() As String
             Get
                 Try 
@@ -10804,21 +10731,6 @@ Partial Public Class Dossier
             End Get
             Set
                 Me(Me.tableClassifications.Product_nameColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Type() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableClassifications.TypeColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Type' in table 'Classifications' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableClassifications.TypeColumn) = value
             End Set
         End Property
         
@@ -10839,42 +10751,18 @@ Partial Public Class Dossier
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Sortage() As Double
+        Public Property Keyy() As Integer
             Get
                 Try 
-                    Return CType(Me(Me.tableClassifications.SortageColumn),Double)
+                    Return CType(Me(Me.tableClassifications.KeyyColumn),Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Sortage' in table 'Classifications' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Keyy' in table 'Classifications' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableClassifications.SortageColumn) = value
+                Me(Me.tableClassifications.KeyyColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsIDNull() As Boolean
-            Return Me.IsNull(Me.tableClassifications.IDColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetIDNull()
-            Me(Me.tableClassifications.IDColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsPIDNull() As Boolean
-            Return Me.IsNull(Me.tableClassifications.PIDColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetPIDNull()
-            Me(Me.tableClassifications.PIDColumn) = Global.System.Convert.DBNull
-        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -10886,18 +10774,6 @@ Partial Public Class Dossier
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetProduct_nameNull()
             Me(Me.tableClassifications.Product_nameColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTypeNull() As Boolean
-            Return Me.IsNull(Me.tableClassifications.TypeColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTypeNull()
-            Me(Me.tableClassifications.TypeColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -10914,14 +10790,14 @@ Partial Public Class Dossier
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsSortageNull() As Boolean
-            Return Me.IsNull(Me.tableClassifications.SortageColumn)
+        Public Function IsKeyyNull() As Boolean
+            Return Me.IsNull(Me.tableClassifications.KeyyColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetSortageNull()
-            Me(Me.tableClassifications.SortageColumn) = Global.System.Convert.DBNull
+        Public Sub SetKeyyNull()
+            Me(Me.tableClassifications.KeyyColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -22442,12 +22318,19 @@ Namespace DossierTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(0) {}
+            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(1) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT ACTID, Subsort, Substance, Concentration, CAS, Test, Result, Notes, Source"& _ 
                 ", [Source embed], Type FROM [Acute Toxicity]"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(1).Connection = Me.Connection
+            Me._commandCollection(1).CommandText = "SELECT        ACTID, Subsort, Substance, Concentration, CAS, Test, Result, Notes,"& _ 
+                " Source, `Source embed`, Type"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            `Acute Toxicity`"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE Substance"& _ 
+                " = ?"
+            Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Substance", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Substance", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -22469,6 +22352,40 @@ Namespace DossierTableAdapters
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
         Public Overloads Overridable Function GetData() As Dossier.Acute_ToxicityDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As Dossier.Acute_ToxicityDataTable = New Dossier.Acute_ToxicityDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillByFiltSub(ByVal dataTable As Dossier.Acute_ToxicityDataTable, ByVal Substance As String) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (Substance Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(Substance,String)
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetDataByFiltSub(ByVal Substance As String) As Dossier.Acute_ToxicityDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (Substance Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(Substance,String)
+            End If
             Dim dataTable As Dossier.Acute_ToxicityDataTable = New Dossier.Acute_ToxicityDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -23463,23 +23380,8 @@ Namespace DossierTableAdapters
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
             tableMapping.SourceTable = "Table"
             tableMapping.DataSetTable = "Classifications"
-            tableMapping.ColumnMappings.Add("ID", "ID")
-            tableMapping.ColumnMappings.Add("PID", "PID")
-            tableMapping.ColumnMappings.Add("Product_name", "Product_name")
-            tableMapping.ColumnMappings.Add("Type", "Type")
-            tableMapping.ColumnMappings.Add("Key", "Key")
-            tableMapping.ColumnMappings.Add("Sortage", "Sortage")
+            tableMapping.ColumnMappings.Add("Keyy", "Keyy")
             Me._adapter.TableMappings.Add(tableMapping)
-            Me._adapter.InsertCommand = New Global.System.Data.OleDb.OleDbCommand()
-            Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO `Classifications` (`PID`, `Product_name`, `Type`, `Key`, `Sortage`) V"& _ 
-                "ALUES (?, ?, ?, ?, ?)"
-            Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PID", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Product_name", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Product_name", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Type", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Key", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Key", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Sortage", Global.System.Data.OleDb.OleDbType.[Double], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Sortage", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -23492,19 +23394,44 @@ Namespace DossierTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(0) {}
+            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(3) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT ID, PID, Product_name, Type, [Key], Sortage FROM Classifications"
+            Me._commandCollection(0).CommandText = "SELECT Keyy FROM Classifications WHERE PID=?"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(1).Connection = Me.Connection
+            Me._commandCollection(1).CommandText = "DELETE FROM Classifications"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (PID = ?) AND (Keyy = ?)"
+            Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PID", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Keyy", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Keyy", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._commandCollection(2) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(2).Connection = Me.Connection
+            Me._commandCollection(2).CommandText = "SELECT Keyy FROM Classifications WHERE (PID = ?) AND (Keyy = ?)"
+            Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Keyy", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Keyy", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(3) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(3).Connection = Me.Connection
+            Me._commandCollection(3).CommandText = "INSERT INTO Classifications"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (PID, Keyy)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        "& _ 
+                "(?, ?)"
+            Me._commandCollection(3).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(3).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(3).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Keyy", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Keyy", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As Dossier.ClassificationsDataTable) As Integer
+        Public Overloads Overridable Function FillByPID(ByVal dataTable As Dossier.ClassificationsDataTable, ByVal PID As Global.System.Nullable(Of Integer)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (PID.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PID.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -23516,8 +23443,13 @@ Namespace DossierTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As Dossier.ClassificationsDataTable
+        Public Overloads Overridable Function GetByPID(ByVal PID As Global.System.Nullable(Of Integer)) As Dossier.ClassificationsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (PID.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PID.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As Dossier.ClassificationsDataTable = New Dossier.ClassificationsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -23525,75 +23457,110 @@ Namespace DossierTableAdapters
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function Update(ByVal dataTable As Dossier.ClassificationsDataTable) As Integer
-            Return Me.Adapter.Update(dataTable)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function Update(ByVal dataSet As Dossier) As Integer
-            Return Me.Adapter.Update(dataSet, "Classifications")
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
-            Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
-            Return Me.Adapter.Update(dataRows)
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillByPIDkeyy(ByVal dataTable As Dossier.ClassificationsDataTable, ByVal PID As Global.System.Nullable(Of Integer), ByVal Keyy As Global.System.Nullable(Of Integer)) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(2)
+            If (PID.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PID.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            End If
+            If (Keyy.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(Keyy.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal PID As Global.System.Nullable(Of Integer), ByVal Product_name As String, ByVal Type As String, ByVal Key As Global.System.Nullable(Of Integer), ByVal Sortage As Global.System.Nullable(Of Double)) As Integer
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetByPIDkeyy(ByVal PID As Global.System.Nullable(Of Integer), ByVal Keyy As Global.System.Nullable(Of Integer)) As Dossier.ClassificationsDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(2)
             If (PID.HasValue = true) Then
-                Me.Adapter.InsertCommand.Parameters(0).Value = CType(PID.Value,Integer)
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PID.Value,Integer)
             Else
-                Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             End If
-            If (Product_name Is Nothing) Then
-                Throw New Global.System.ArgumentNullException("Product_name")
+            If (Keyy.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(Keyy.Value,Integer)
             Else
-                Me.Adapter.InsertCommand.Parameters(1).Value = CType(Product_name,String)
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            If (Type Is Nothing) Then
-                Me.Adapter.InsertCommand.Parameters(2).Value = Global.System.DBNull.Value
+            Dim dataTable As Dossier.ClassificationsDataTable = New Dossier.ClassificationsDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, false)>  _
+        Public Overloads Overridable Function DeletePIDkeyy(ByVal PID As Global.System.Nullable(Of Integer), ByVal Keyy As Global.System.Nullable(Of Integer)) As Integer
+            Dim command As Global.System.Data.OleDb.OleDbCommand = Me.CommandCollection(1)
+            If (PID.HasValue = true) Then
+                command.Parameters(0).Value = CType(PID.Value,Integer)
             Else
-                Me.Adapter.InsertCommand.Parameters(2).Value = CType(Type,String)
+                command.Parameters(0).Value = Global.System.DBNull.Value
             End If
-            If (Key.HasValue = true) Then
-                Me.Adapter.InsertCommand.Parameters(3).Value = CType(Key.Value,Integer)
+            If (Keyy.HasValue = true) Then
+                command.Parameters(1).Value = CType(Keyy.Value,Integer)
             Else
-                Me.Adapter.InsertCommand.Parameters(3).Value = Global.System.DBNull.Value
+                command.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            If (Sortage.HasValue = true) Then
-                Me.Adapter.InsertCommand.Parameters(4).Value = CType(Sortage.Value,Double)
-            Else
-                Me.Adapter.InsertCommand.Parameters(4).Value = Global.System.DBNull.Value
-            End If
-            Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
-                Me.Adapter.InsertCommand.Connection.Open
+                command.Connection.Open
             End If
+            Dim returnValue As Integer
             Try 
-                Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
-                Return returnValue
+                returnValue = command.ExecuteNonQuery
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
-                    Me.Adapter.InsertCommand.Connection.Close
+                    command.Connection.Close
                 End If
             End Try
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, false)>  _
+        Public Overloads Overridable Function InsertPIDkeyy(ByVal PID As Global.System.Nullable(Of Integer), ByVal Keyy As Global.System.Nullable(Of Integer)) As Integer
+            Dim command As Global.System.Data.OleDb.OleDbCommand = Me.CommandCollection(3)
+            If (PID.HasValue = true) Then
+                command.Parameters(0).Value = CType(PID.Value,Integer)
+            Else
+                command.Parameters(0).Value = Global.System.DBNull.Value
+            End If
+            If (Keyy.HasValue = true) Then
+                command.Parameters(1).Value = CType(Keyy.Value,Integer)
+            Else
+                command.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
         End Function
     End Class
     
@@ -25926,13 +25893,20 @@ Namespace DossierTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(0) {}
+            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(1) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT ID, Hazard_class, TypeCrypt, ClassCrypt, CategoryCrypt, Hazard_category, S"& _ 
                 "ort, Hazard_code, Hazard_statement, Hazard_type, Signal_word, Symbol, PCodes, [H"& _ 
                 "az—Cat], Pstat, Hazard_classification, Haz_listbox FROM [Hazard Lexicon]"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(1).Connection = Me.Connection
+            Me._commandCollection(1).CommandText = "SELECT        ID, Hazard_class, TypeCrypt, ClassCrypt, CategoryCrypt, Hazard_cate"& _ 
+                "gory, Sort, Haz_listbox"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            `Hazard Lexicon`"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (TypeCry"& _ 
+                "pt = ?)"
+            Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("TypeCrypt", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "TypeCrypt", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -25954,6 +25928,40 @@ Namespace DossierTableAdapters
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
         Public Overloads Overridable Function GetData() As Dossier.Hazard_LexiconDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As Dossier.Hazard_LexiconDataTable = New Dossier.Hazard_LexiconDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillListBoxEntries(ByVal dataTable As Dossier.Hazard_LexiconDataTable, ByVal TypeCrypt As Global.System.Nullable(Of Integer)) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (TypeCrypt.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(TypeCrypt.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetListBoxEntries(ByVal TypeCrypt As Global.System.Nullable(Of Integer)) As Dossier.Hazard_LexiconDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (TypeCrypt.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(TypeCrypt.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As Dossier.Hazard_LexiconDataTable = New Dossier.Hazard_LexiconDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -32000,8 +32008,6 @@ Namespace DossierTableAdapters
         
         Private _brandingTableAdapter As BrandingTableAdapter
         
-        Private _classificationsTableAdapter As ClassificationsTableAdapter
-        
         Private _componentsTableAdapter As ComponentsTableAdapter
         
         Private _defaultsTableAdapter As DefaultsTableAdapter
@@ -32070,20 +32076,6 @@ Namespace DossierTableAdapters
             End Get
             Set
                 Me._brandingTableAdapter = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
-            "a", "System.Drawing.Design.UITypeEditor")>  _
-        Public Property ClassificationsTableAdapter() As ClassificationsTableAdapter
-            Get
-                Return Me._classificationsTableAdapter
-            End Get
-            Set
-                Me._classificationsTableAdapter = value
             End Set
         End Property
         
@@ -32216,10 +32208,6 @@ Namespace DossierTableAdapters
                             AndAlso (Not (Me._brandingTableAdapter.Connection) Is Nothing)) Then
                     Return Me._brandingTableAdapter.Connection
                 End If
-                If ((Not (Me._classificationsTableAdapter) Is Nothing)  _
-                            AndAlso (Not (Me._classificationsTableAdapter.Connection) Is Nothing)) Then
-                    Return Me._classificationsTableAdapter.Connection
-                End If
                 If ((Not (Me._componentsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._componentsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._componentsTableAdapter.Connection
@@ -32268,9 +32256,6 @@ Namespace DossierTableAdapters
                     count = (count + 1)
                 End If
                 If (Not (Me._brandingTableAdapter) Is Nothing) Then
-                    count = (count + 1)
-                End If
-                If (Not (Me._classificationsTableAdapter) Is Nothing) Then
                     count = (count + 1)
                 End If
                 If (Not (Me._componentsTableAdapter) Is Nothing) Then
@@ -32329,15 +32314,6 @@ Namespace DossierTableAdapters
                 If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._brandingTableAdapter.Update(updatedRows))
-                    allChangedRows.AddRange(updatedRows)
-                End If
-            End If
-            If (Not (Me._classificationsTableAdapter) Is Nothing) Then
-                Dim updatedRows() As Global.System.Data.DataRow = dataSet.Classifications.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
-                updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing)  _
-                            AndAlso (0 < updatedRows.Length)) Then
-                    result = (result + Me._classificationsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
                 End If
             End If
@@ -32435,14 +32411,6 @@ Namespace DossierTableAdapters
                 If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._brandingTableAdapter.Update(addedRows))
-                    allAddedRows.AddRange(addedRows)
-                End If
-            End If
-            If (Not (Me._classificationsTableAdapter) Is Nothing) Then
-                Dim addedRows() As Global.System.Data.DataRow = dataSet.Classifications.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing)  _
-                            AndAlso (0 < addedRows.Length)) Then
-                    result = (result + Me._classificationsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
                 End If
             End If
@@ -32568,14 +32536,6 @@ Namespace DossierTableAdapters
                     allChangedRows.AddRange(deletedRows)
                 End If
             End If
-            If (Not (Me._classificationsTableAdapter) Is Nothing) Then
-                Dim deletedRows() As Global.System.Data.DataRow = dataSet.Classifications.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing)  _
-                            AndAlso (0 < deletedRows.Length)) Then
-                    result = (result + Me._classificationsTableAdapter.Update(deletedRows))
-                    allChangedRows.AddRange(deletedRows)
-                End If
-            End If
             If (Not (Me._brandingTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.Branding.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
                 If ((Not (deletedRows) Is Nothing)  _
@@ -32653,11 +32613,6 @@ Namespace DossierTableAdapters
             End If
             If ((Not (Me._brandingTableAdapter) Is Nothing)  _
                         AndAlso (Me.MatchTableAdapterConnection(Me._brandingTableAdapter.Connection) = false)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
-                        "tring.")
-            End If
-            If ((Not (Me._classificationsTableAdapter) Is Nothing)  _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._classificationsTableAdapter.Connection) = false)) Then
                 Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
@@ -32753,15 +32708,6 @@ Namespace DossierTableAdapters
                     If Me._brandingTableAdapter.Adapter.AcceptChangesDuringUpdate Then
                         Me._brandingTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._brandingTableAdapter.Adapter)
-                    End If
-                End If
-                If (Not (Me._classificationsTableAdapter) Is Nothing) Then
-                    revertConnections.Add(Me._classificationsTableAdapter, Me._classificationsTableAdapter.Connection)
-                    Me._classificationsTableAdapter.Connection = CType(workConnection,Global.System.Data.OleDb.OleDbConnection)
-                    Me._classificationsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.OleDb.OleDbTransaction)
-                    If Me._classificationsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._classificationsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
-                        adaptersWithAcceptChangesDuringUpdate.Add(Me._classificationsTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._componentsTableAdapter) Is Nothing) Then
@@ -32898,10 +32844,6 @@ Namespace DossierTableAdapters
                 If (Not (Me._brandingTableAdapter) Is Nothing) Then
                     Me._brandingTableAdapter.Connection = CType(revertConnections(Me._brandingTableAdapter),Global.System.Data.OleDb.OleDbConnection)
                     Me._brandingTableAdapter.Transaction = Nothing
-                End If
-                If (Not (Me._classificationsTableAdapter) Is Nothing) Then
-                    Me._classificationsTableAdapter.Connection = CType(revertConnections(Me._classificationsTableAdapter),Global.System.Data.OleDb.OleDbConnection)
-                    Me._classificationsTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._componentsTableAdapter) Is Nothing) Then
                     Me._componentsTableAdapter.Connection = CType(revertConnections(Me._componentsTableAdapter),Global.System.Data.OleDb.OleDbConnection)

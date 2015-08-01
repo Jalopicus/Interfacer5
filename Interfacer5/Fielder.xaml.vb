@@ -1,16 +1,25 @@
-﻿Imports System.Globalization
+﻿Public Class Fielder
+    Public Property Cntnt As String
+        Get
+            Return GetValue(CntntProperty)
+        End Get
 
-Public Class Fielder
+        Set(ByVal value As String)
+            SetValue(CntntProperty, value)
+        End Set
+    End Property
 
-End Class
-Public Class FieldConverter
-    Implements IMultiValueConverter
+    Public Shared ReadOnly CntntProperty As DependencyProperty =
+                           DependencyProperty.Register("Cntnt",
+                           GetType(String), GetType(Fielder),
+                           New PropertyMetadata(Nothing))
 
-    Public Function Convert(values() As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IMultiValueConverter.Convert
-        Return "fart"
-    End Function
+    Public Sub New()
 
-    Public Function ConvertBack(value As Object, targetTypes() As Type, parameter As Object, culture As CultureInfo) As Object() Implements IMultiValueConverter.ConvertBack
-        Throw New NotImplementedException()
-    End Function
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
 End Class

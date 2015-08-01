@@ -5,185 +5,223 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interfacer5"
         xmlns:doss="clr-namespace:Interfacer5.DossierTableAdapters"
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Name="Wind0w" x:Class="MainWindow"
-        mc:Ignorable="d" Height="600" Width="800" ShowInTaskbar="False" Background="#FF492929" ResizeMode="NoResize" WindowStyle="ToolWindow"
-        >
+        mc:Ignorable="d" Height="600" Width="900" ShowInTaskbar="False" Style="{StaticResource LooksGood}" Background="#FF492929">
     <Window.Resources>
         <CollectionViewSource x:Key="Product_LogViewSource" Source="{Binding Product_Log, Source={StaticResource Dossier}}"/>
         <doss:BrandingTableAdapter x:Key="DossierBrandingTableAdapter"/>
+        <doss:Hazard_LexiconTableAdapter x:Key="DossierHazard_LexiconTableAdapter"/>
+        <doss:ClassificationsTableAdapter x:Key="ClassifTableAdapter"/>
+        <doss:ComponentsTableAdapter x:Key="CompTableAdapter"/>
     </Window.Resources>
-    <DockPanel Margin="0,0,0,0">
-        <ToolBarTray x:Name="toolBarTray" DockPanel.Dock="Top" Background="#FF2C2C2C" IsLocked="True">
-            <ToolBar x:Name="toolBar" HorizontalAlignment="Stretch" Background="#FF2C2C2C" Width="{Binding ActualWidth, ElementName=toolBarTray, Mode=OneWay}">
-                <Button x:Name="Back" Foreground="AntiqueWhite" Width="25" Content="&lt;"/>
-                <Button x:Name="Forward" Foreground="AntiqueWhite" Width="25" Content="&gt;"/>
-                <Button x:Name="Save" Foreground="AntiqueWhite" Content="Save" Margin="25,0"/>
-            </ToolBar>
-        </ToolBarTray>
-        <Grid>
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Background="#FF2C2C2C" LastChildFill="False" Grid.Row="0">
+            <Button x:Name="Back"  Width="25" Margin="6,0" Content="&lt;" Foreground="AntiqueWhite" ToolTip="Previous Record"/>
+            <Button x:Name="Forward" Width="25" Margin="6, 0" Content="&gt;" Foreground="AntiqueWhite" ToolTip="Next Record"/>
+            <Button x:Name="Save" Content="Save" Margin="20,0" Foreground="AntiqueWhite" ToolTip="Save Changes"/>
+            <Label Content="|" Margin="0" Padding="0" Width="5" Opacity="0.6"/>
+            <Button x:Name="SdsProfile" Content="Profile SDS" ToolTip="Complete SDS profiling of current product."/>
+            <Button x:Name="SDSout" Content="Generate SDS" Foreground="AntiqueWhite" Margin="20,0"/>
+            <Button x:Name="LabelOut" Content="Generate Label" Foreground="AntiqueWhite" Margin="20,0"/>
+            <Label Content="|" Margin="0" Padding="0" Width="5" Opacity="0.6"/>
+            <Button x:Name="Intel" Content="Manage Intel" Foreground="AntiqueWhite" Margin="20,0"/>
+            <Button x:Name="Close" Content="r"/>
+        </DockPanel >
+        <Grid Grid.Row="1" x:Name="WindowContent">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,0,0" DataContext="{StaticResource Product_LogViewSource}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="315"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="FirstColumn" Orientation="Vertical" Grid.Column="0" Grid.RowSpan="2" 
+                        Margin="0,0,0,0" DataContext="{StaticResource Product_LogViewSource}" Height="920" VerticalAlignment="Top">
                 <Label Content="Identity" Style="{StaticResource ColHeader}"/>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Name"/>
-                    <TextBox x:Name="Product_nameTextBox" Text="{Binding Product_name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Description"/>
-                    <TextBox x:Name="Product_descriptionTextBox" Grid.Column="1" Text="{Binding Product_description, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Class"/>
-                    <TextBox x:Name="Product_classTextBox" Grid.Column="1" Text="{Binding Product_class, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Supplier"/>
-                    <ComboBox x:Name="Supplier_codeComboBox" SelectedValue="{Binding Supplier_code, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" SelectedValuePath="CID" DisplayMemberPath="Supplier" ItemsSource="{Binding ComboProp, Source={StaticResource DossierBrandingTableAdapter}}">
+                <local:Fielder Cntnt="Name" DataContext="{Binding Product_name}"/>
+                <local:Fielder Cntnt="Description" DataContext="{Binding Product_description}"/>
+                <local:Fielder Cntnt="Class" DataContext="{Binding Product_class}"/>
+                <Grid Width="340" Height="26" Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Supplier" Margin="0" Width="90" Grid.Column="0"/>
+                    <ComboBox x:Name="Supplier_codeComboBox" Grid.Column="1" SelectedValue="{Binding Supplier_code, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" 
+                              SelectedValuePath="CID" DisplayMemberPath="Supplier" ItemsSource="{Binding ComboProp, Source={StaticResource DossierBrandingTableAdapter}}"
+                              Width="225" Margin="3" Height="20" Foreground="Black">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel/>
                             </ItemsPanelTemplate>
                         </ComboBox.ItemsPanel>
                     </ComboBox>
-                </StackPanel>
+                </Grid>
                 <Label Content="Transport" Style="{StaticResource ColHeader}"/>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="UN Number"/>
-                    <TextBox x:Name="UNNumberBox" Text="{Binding UN_number, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="PSN"/>
-                    <TextBox x:Name="PSNTextBox" Height="40" Text="{Binding Proper_shipping_name, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Contains"/>
-                    <TextBox x:Name="DOTContainsTextBox" Text="{Binding DOTContains, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Primary Haz"/>
-                    <TextBox x:Name="PrimaryHazTextBox" Text="{Binding Primary_haz, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Secondary Haz"/>
-                    <TextBox x:Name="SecondaryTextBox" Text="{Binding Secondary_haz, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Trans Label"/>
-                    <TextBox x:Name="TransTextBox" Text="{Binding DOT_label, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="DOT"/>
-                    <TextBox x:Name="DOTTextBox" Text="{Binding DOT, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Product RQ"/>
-                    <TextBox x:Name="ProductRQTextBox" Text="{Binding Product_RQ, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
+                <local:Fielder Cntnt="UN Number" DataContext="{Binding UN_number}"/>
+                <local:Fielder Cntnt="PSN" DataContext="{Binding Proper_shipping_name}"/>
+                <local:Fielder Cntnt="Contains" DataContext="{Binding Contains}"/>
+                <local:Fielder Cntnt="Primary Haz" DataContext="{Binding Primary_haz}"/>
+                <local:Fielder Cntnt="Secondary Haz" DataContext="{Binding Secondary_haz}"/>
+                <local:Fielder Cntnt="Trans Label" DataContext="{Binding DOT_label}"/>
+                <local:Fielder Cntnt="Product RQ" DataContext="{Binding Product_RQ}"/>
+                <local:Fielder Cntnt="DOT Note" DataContext="{Binding DOT}"/>
+                <Label Style="{StaticResource ColHeader}" Content="Regulation"/>
+                <UniformGrid Height="20" Rows="1" Width="250">
+                    <Label Content="HMIS" Height="20"/>
+                    <TextBox Width="50" Height="20"/>
+                    <Label Content="NFPA" Height="20"/>
+                    <TextBox Width="50" Height="20"/>
+                </UniformGrid>
+                <UniformGrid Rows="1" Height="25" HorizontalAlignment="Center">
+                    <CheckBox Margin="15,5" Content="I" IsChecked="{Binding SARA311I, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    <CheckBox Margin="15,5" Content="D" IsChecked="{Binding SARA311D, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    <CheckBox Margin="15,5" Content="F" IsChecked="{Binding SARA311F, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    <CheckBox Margin="15,5" Content="P" IsChecked="{Binding SARA311P, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                    <CheckBox Margin="15,5" Content="R" IsChecked="{Binding SARA311R, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
+                </UniformGrid>
+                <Label Style="{StaticResource ColHeader}" Content="SDS Version History"/>
+                <Grid x:Name="VersionLayout">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Version"/>
+                    <TextBox x:Name="VersionTextBox" Margin="3" Grid.Column="1" Grid.Row="0"  Text="{Binding Version, Mode=TwoWay, NotifyOnValidationError=True, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="Issue Date"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="3" x:Name="IssueDateTextBox" Text="{Binding Issue_date, Mode=TwoWay, NotifyOnValidationError=True, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
+                    <Label Grid.Column="2" Grid.Row="1" x:Name="IssueDate" Content="Today" FontStyle="Italic" BorderBrush="AntiqueWhite" BorderThickness="1" Width="50" Opacity="0.8" />
+                    <Label Grid.Column="0" Grid.Row="2" Content="Revision Date"/>
+                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="RevisionDateTextBox" Text="{Binding Revision_date, Mode=TwoWay, NotifyOnValidationError=True, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                    <Label Grid.Column="2" Grid.Row="2" x:Name="RevisionDate" Content="Today" FontStyle="Italic" BorderBrush="AntiqueWhite" BorderThickness="1" Width="50" Opacity="0.8"/>
+                </Grid>
+            </StackPanel> 
 
-            </StackPanel>
-
-            <StackPanel x:Name="Specs" DataContext="{StaticResource Product_LogViewSource}" Orientation="Vertical" Grid.Column="1">
+            <StackPanel x:Name="Specs" DataContext="{StaticResource Product_LogViewSource}" Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                 <Label Content="Specifications" Style="{StaticResource ColHeader}"/>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="pH"/>
-                    <TextBox x:Name="pHTextBox" Text="{Binding pH, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Appearance"/>
-                    <TextBox x:Name="AppearanceTextBox" Text="{Binding Appearance, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Odor"/>
-                    <TextBox x:Name="OdorTextBox" Text="{Binding Odor, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="pH"/>
-                    <TextBox x:Name="OdorThresholdTextBox" Text="{Binding Odor_threshold, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Freezing Point"/>
-                    <TextBox x:Name="FreezingPointTextBox" Text="{Binding Freezing_point, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Boiling Point"/>
-                    <TextBox x:Name="BoilingPointTextBox" Text="{Binding Boiling_point, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Flash Point"/>
-                    <TextBox x:Name="FlashPointTextBox" Text="{Binding Flash_point, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Evap. Rate"/>
-                    <TextBox x:Name="EvaporationRateTextBox" Text="{Binding Evaporation_Rate, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Flammability"/>
-                    <TextBox x:Name="FlammabilityTextBox" Text="{Binding Flammability, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}" IsEnabled="False"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Explosive Limits"/>
-                    <TextBox x:Name="ExplosiveLimitsTextBox" Text="{Binding Explosive_limits, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Vapor Pressure"/>
-                    <TextBox x:Name="VaporPressureTextBox" Text="{Binding Vapor_pressure, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Vapor Density"/>
-                    <TextBox x:Name="VaporDensityTextBox" Text="{Binding Vapor_density, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="VOC Content"/>
-                    <TextBox x:Name="VOCContentTextBox" Text="{Binding VOC_content, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Specific Gravity"/>
-                    <TextBox x:Name="SpecificGravityTextBox" Text="{Binding Specific_gravity, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Solubility"/>
-                    <TextBox x:Name="SolubilityTextBox" Text="{Binding Solubility, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Partition Coeff."/>
-                    <TextBox x:Name="PartitionCoeffTextBox" Text="{Binding Partition_coefficient, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Auto-Ignition T"/>
-                    <TextBox x:Name="AutoIgnitionTextBox" Text="{Binding Autoignition_temperature, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Decomp. Temp"/>
-                    <TextBox x:Name="DecompTempCoeffTextBox" Text="{Binding Decomposition_temperature, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Viscosity"/>
-                    <TextBox x:Name="ViscosityTextBox" Text="{Binding Viscosity, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true}"/>
-                </StackPanel>
+                <Expander x:Name="Specs1" Foreground="AntiqueWhite">
+                    <StackPanel>
+                        <local:Fielder Cntnt="pH" DataContext="{Binding pH}"/>
+                        <local:Fielder Cntnt="Appearance" DataContext="{Binding Appearance}"/>
+                        <local:Fielder Cntnt="Odor" DataContext="{Binding Odor}"/>
+                        <local:Fielder Cntnt="Specific Gravity" DataContext="{Binding Specific_gravity}"/>
+                        <local:Fielder Cntnt="Freezing Pt" DataContext="{Binding Freezing_point}"/>
+                        <local:Fielder Cntnt="Boiling Pt" DataContext="{Binding Boiling_point}"/>
+                        <local:Fielder Cntnt="Flash Pt" DataContext="{Binding Flash_point}"/>
+                        <local:Fielder Cntnt="Explosive Limits" DataContext="{Binding Explosive_limits}"/>
+                        <local:Fielder Cntnt="VOC Content" DataContext="{Binding VOC_content}"/>
+                        <local:Fielder Cntnt="Solubility" DataContext="{Binding Solubility}"/>
+                    </StackPanel>
+                </Expander>
+                <Expander x:Name="Specs2" Header="More specifications..." Foreground="AntiqueWhite">
+                    <StackPanel Orientation="Vertical">
+                        <local:Fielder Cntnt="Odor Thresh" DataContext="{Binding Odor_threshold}"/>
+                        <local:Fielder Cntnt="Evap. Rate" DataContext="{Binding Evaporation_rate}"/>
+                        <local:Fielder Cntnt="Flammability" DataContext="{Binding Flammability}"/>
+                        <local:Fielder Cntnt="Vapor Pressure" DataContext="{Binding Vapor_pressure}"/>
+                        <local:Fielder Cntnt="Vapor Density" DataContext="{Binding Vapor_density}"/>
+                        <local:Fielder Cntnt="Partition Coeff." DataContext="{Binding Partition_coefficient}"/>
+                        <local:Fielder Cntnt="Auto-Ignition T" DataContext="{Binding Autoignition_temperature}"/>
+                        <local:Fielder Cntnt="Decomp T" DataContext="{Binding Decomposition_temperature}"/>
+                        <local:Fielder Cntnt="Viscosity" DataContext="{Binding Viscosity}"/>
+                    </StackPanel>
+                </Expander>
             </StackPanel>
-            <DockPanel x:Name="Framer" Grid.Column="2">
-                <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                    <Label Style="{StaticResource ColHeader}" Content="Classification"/>
-                    <Expander x:Name="Health" Header="Health" Foreground="AntiqueWhite">
-                        <ListBox x:Name="HealthLB" Width="Auto" Height="200" Margin="4" Background="#FF4D1717" Template="{DynamicResource ListBoxControlTemplate1}">
-                            <ListBoxItem>Poop</ListBoxItem>
-                            <ListBoxItem IsSelected="True">Fart</ListBoxItem>
-                        </ListBox>
-                    </Expander>
-                    <Expander x:Name="Physical" Header="Physical" Foreground="AntiqueWhite">
-                        <ListBox x:Name="PhysLB" Width="Auto" Height="200" Margin="4" Background="#FF4D1717"/>
-                    </Expander>
-                    <Expander x:Name="Environmental" Header="Environmental" Foreground="AntiqueWhite">
-                        <ListBox x:Name="EnvLB" Width="Auto" Height="200" Margin="4" Background="#FF4D1717"/>
-                    </Expander>
-                </StackPanel>
-                <TextBlock x:Name="Display" DockPanel.Dock="Bottom" Text="fart" Height="200" VerticalAlignment="Bottom" Margin="5" Foreground="AntiqueWhite"/>
-            </DockPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2">
+                <Label Style="{StaticResource ColHeader}" Content="Classification"/>
+                <Expander x:Name="Health" Header="Health" Foreground="AntiqueWhite" IsExpanded="True" >
+                    <ListBox x:Name="HealthLB" Height="200" Margin="4" Background="#FF4D1717" DataContext="{StaticResource DossierHazard_LexiconTableAdapter}" 
+                                 ItemsSource="{Binding HealthLBL}" DisplayMemberPath="DisplayValue" SelectedValuePath="ID" SelectionMode="Multiple"/>
+                </Expander>
+                <Expander x:Name="Physical" Header="Physical" Foreground="AntiqueWhite">
+                    <ListBox x:Name="PhysLB" Height="200" Margin="4" Background="#FF4D1717" DataContext="{StaticResource DossierHazard_LexiconTableAdapter}" 
+                                 ItemsSource="{Binding PhysLBL}" DisplayMemberPath="DisplayValue" SelectedValuePath="ID" SelectionMode="Multiple"/>
+                </Expander>
+                <Expander x:Name="Environmental" Header="Environmental" Foreground="AntiqueWhite">
+                    <ListBox x:Name="EnvLB" Height="200" Margin="4" Background="#FF4D1717" DataContext="{StaticResource DossierHazard_LexiconTableAdapter}" 
+                                 ItemsSource="{Binding EnvironLBL}" DisplayMemberPath="DisplayValue" SelectedValuePath="ID" SelectionMode="Multiple"/>
+                </Expander>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                <DockPanel Height="30" Background="#FF2C2C2C" LastChildFill="False" Grid.Row="0">
+                    <Button x:Name="CompManagement"  Margin="6,0" Content="Manage Components" Foreground="AntiqueWhite" ToolTip="Previous Record"/>
+                    <Button x:Name="CompDossier"  Margin="6,0" Content="Manage Components" Foreground="AntiqueWhite" ToolTip="Previous Record"/>
+                    <Label Content="|" Margin="0" Padding="0" Width="5" Opacity="0.6"/>
+                </DockPanel >
+                <Grid x:Name="ComponentsPanel" Width="500" Margin="0,18,0,0" DataContext="{StaticResource Product_LogViewSource}">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                            <Setter Property="Width" Value="300"/>
+                            <Setter Property="ItemsSource" Value="{Binding CompPool, Source={StaticResource CompTableAdapter}}"/>
+                            <Setter Property="IsEditable" Value="True"/>
+                        </Style>
+                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                            <Setter Property="Width" Value="25"/>
+                            <Setter Property="Margin" Value="10,3"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="{x:Type ComboBoxItem}">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox Grid.Column="0" Grid.Row="0" SelectedItem="{Binding Comp1}"/>
+                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedItem="{Binding Comp2}"/>
+                    <ComboBox Grid.Column="0" Grid.Row="2" SelectedItem="{Binding Comp3}"/>
+                    <ComboBox Grid.Column="0" Grid.Row="3" SelectedItem="{Binding Comp4}"/>
+                    <ComboBox Grid.Column="0" Grid.Row="4" SelectedItem="{Binding Comp5}"/>
+
+                    <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" >
+                        <TextBox Text="{Binding WeightRangeLow1}"/>
+                        <Label x:Name="Sign1" Content="–" Width="10" FontWeight="Bold" Margin="0"/>
+                        <TextBox Width="25" Text="{Binding WeightRangeHigh1}" Margin="10,3"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" >
+                        <TextBox Width="25" Text="{Binding WeightRangeLow2}" Margin="10,3"/>
+                        <Label x:Name="Sign2" Content="–" Width="10" FontWeight="Bold" Margin="0"/>
+                        <TextBox Width="25" Text="{Binding WeightRangeHigh2}" Margin="10,3"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" >
+                        <TextBox Width="25" Text="{Binding WeightRangeLow3}"/>
+                        <Label x:Name="Sign3" Content="–" Width="10" FontWeight="Bold" Margin="0"/>
+                        <TextBox Width="25" Text="{Binding WeightRangeHigh3}" Margin="10,3"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                        <TextBox Width="25" Text="{Binding WeightRangeLow4}" Margin="10,3"/>
+                        <Label x:Name="Sign4" Content="–" Width="10" FontWeight="Bold" Margin="0"/>
+                        <TextBox Width="25" Text="{Binding WeightRangeHigh4}" Margin="10,3"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+                        <TextBox Width="25" Text="{Binding WeightRangeLow5}" Margin="10,3"/>
+                        <Label x:Name="Sign5" Content="–" Width="10" FontWeight="Bold" Margin="0"/>
+                        <TextBox Width="25" Text="{Binding WeightRangeHigh5}" Margin="10,3"/>
+                    </StackPanel>
+                </Grid> 
+            </StackPanel> 
         </Grid>
-    </DockPanel>
+    </Grid>
 </Window>
